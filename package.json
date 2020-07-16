@@ -1,0 +1,21 @@
+{
+  "name": "bill-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "next": "^9.4.4",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
