@@ -1,4 +1,4 @@
-import Navbar from "../components/shared/Navbar"
+import Navbar from "@/components/shared/Navbar"
 import Hero from "../components/shared/Hero"
 
 const Home = () => (
@@ -104,21 +104,7 @@ const Home = () => (
         </div>
       </section>
       <a href="" className="btn btn-main bg-blue ttu">See More Posts</a>
-      {/* HOME PAGE ENDS */}
-      {/* FORUM CATEGORIES START */}
-      {/* FORUM CATEGORIES ENDS */}
-      {/* TOPICS PAGE STARTS */}
-      {/* TOPICS PAGE ENDS */}
-      {/* POSTS PAGE STARTS */}
-
-      {/* POSTS PAGE ENDS */}
-      {/* LOGIN PAGE STARTS */}
-
-      {/* LOGIN PAGE ENDS */}
     </div>
-
-    {/* REPLIER STARTS */}
-    {/* <div className='reply-controls is-open'> */}
     <div className='reply-controls'>
       <div className="reply-area">
         <div className="reply-to">
