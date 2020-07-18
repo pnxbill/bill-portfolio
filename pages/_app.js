@@ -1,4 +1,6 @@
 
+import App from 'next/app';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/index.scss';
 
@@ -10,12 +12,18 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <div className="portfolio-app">
       <Navbar />
+      {pageProps.appData}
       {Component.name === "Home" && <Hero />}
       <div className="container">
         <Component {...pageProps} />
       </div>
     </div>
   )
+}
+
+MyApp.getInitialProps = async (context) => {
+  const pageProps = App.getInitialProps && await App.getInitialProps(context);
+  return { pageProps: { appData: 'Hello _App Component', ...pageProps.pageProps } }
 }
 
 export default MyApp;
