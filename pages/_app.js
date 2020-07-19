@@ -21,7 +21,9 @@ const MyApp = ({ Component, pageProps }) => {
   )
 }
 
+
 MyApp.getInitialProps = async (context) => {
+  // Getting initial props from here will prevent Page initial props from loading, unless you do this:
   const pageProps = App.getInitialProps && await App.getInitialProps(context);
   return { pageProps: { appData: 'Hello _App Component', ...pageProps.pageProps } }
 }
