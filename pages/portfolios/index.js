@@ -3,7 +3,7 @@ const apiCall = () => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res({ testingData: 'Just some testing data' })
-    }, 300)
+    }, 100)
   })
 }
 
