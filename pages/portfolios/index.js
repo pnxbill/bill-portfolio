@@ -1,11 +1,7 @@
 import Axios from "axios";
 
-
-
-const Portfolios = (props) => {
-
-  const fetchPortfolios = () => {
-    const query = `
+const fetchPortfolios = () => {
+  const query = `
       query Portfolios {
         portfolios {
           _id
@@ -19,8 +15,11 @@ const Portfolios = (props) => {
       }
     `;
 
-    return Axios.post(`http://localhost:3000/graphql`, { query })
-  }
+  return Axios.post(`http://localhost:3000/graphql`, { query })
+}
+
+const Portfolios = ({ portfolios }) => {
+
 
   return (
     <>
@@ -30,6 +29,7 @@ const Portfolios = (props) => {
             <h1>Portfolios</h1>
           </div>
         </div>
+        {JSON.stringify(portfolios)}
         <button onClick={fetchPortfolios} className="btn btn-primary">Fetch Data</button>
       </section>
       <section className="pb-5">
@@ -76,11 +76,10 @@ const Portfolios = (props) => {
   )
 }
 
-// Portfolios.getInitialProps = async () => {
+Portfolios.getInitialProps = async () => {
+  const { data: { data: { portfolios } } } = await fetchPortfolios();
 
-//   const data = await apiCall();
-//   return { ...data };
-
-// }
+  return { portfolios };
+}
 
 export default Portfolios;
