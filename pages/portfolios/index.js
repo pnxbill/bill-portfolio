@@ -1,24 +1,36 @@
+import Axios from "axios";
 
-const apiCall = () => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      res({ testingData: 'Just some testing data' })
-    }, 100)
-  })
-}
 
 
 const Portfolios = (props) => {
 
+  const fetchPortfolios = () => {
+    const query = `
+      query Portfolios {
+        portfolios {
+          _id
+          title
+          company
+          companyWebsite
+          location
+          jobTitle
+          description  
+        }
+      }
+    `;
+
+    return Axios.post(`http://localhost:3000/graphql`, { query })
+  }
+
   return (
     <>
-      {props.testingData}
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
             <h1>Portfolios</h1>
           </div>
         </div>
+        <button onClick={fetchPortfolios} className="btn btn-primary">Fetch Data</button>
       </section>
       <section className="pb-5">
         <div className="row">
@@ -64,11 +76,11 @@ const Portfolios = (props) => {
   )
 }
 
-Portfolios.getInitialProps = async () => {
+// Portfolios.getInitialProps = async () => {
 
-  const data = await apiCall();
-  return { ...data };
+//   const data = await apiCall();
+//   return { ...data };
 
-}
+// }
 
 export default Portfolios;
