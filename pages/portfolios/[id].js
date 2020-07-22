@@ -48,8 +48,8 @@ const PortfolioDetail = ({ portfolio }) => {
 
 const fetchPortfolio = (id) => {
   const query = `
-    query Portfolio {
-      portfolio(id: "${id}") {
+    query Portfolio($id: ID) {
+      portfolio(id: $id) {
         _id
         title
         jobTitle
@@ -62,7 +62,7 @@ const fetchPortfolio = (id) => {
     }
   `;
 
-  return Axios.post('http://localhost:3000/graphql', { query })
+  return Axios.post('http://localhost:3000/graphql', { query, variables: { id } })
 }
 
 // INITIALIZE PROPS FROM FUNCTIONAL COMPONENT
