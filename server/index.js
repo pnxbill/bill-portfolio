@@ -25,6 +25,10 @@ app.prepare().then(() => {
       portfolio(id: ID): Portfolio
       portfolios: [Portfolio]
     }
+
+    type Mutation { 
+      createPortfolio(input: PortfolioInput): Portfolio
+    }
   `);
   // Provides a resolver for each graphql endpoint
   const root = {
