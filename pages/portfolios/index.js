@@ -1,6 +1,8 @@
 import Axios from "axios";
 import PortfolioCard from "../../components/portfolios/PortfolioCard";
 import Link from 'next/link';
+import { useState } from "react";
+
 
 const fetchPortfolios = () => {
   const query = `
@@ -22,8 +24,42 @@ const fetchPortfolios = () => {
   return Axios.post(`http://localhost:3000/graphql`, { query })
 }
 
-const Portfolios = ({ portfolios }) => {
+const queryCreatePortfolio = () => {
+  const query = `
+      mutation CreatePortfolio {
+        createPortfolio(input: {
+          title: "JOB FLORIPA"
+          company: "WAVECODE EIRELLI"
+          companyWebsite: "https://wavecode.com.br"
+          location: "São José, SC"
+          jobTitle: "Programador"
+          description: "Inserir código no teclado"
+          startDate: "26/08/2019"
+          endDate: "NOT YET DECIDED"
+        }) {
+          _id
+          title
+          company
+          companyWebsite
+          location
+          jobTitle
+          description
+          startDate
+          endDate
+        }
+      }
+    `;
 
+  return Axios.post(`http://localhost:3000/graphql`, { query })
+}
+const Portfolios = ({ portfolios: fetchedPortfolios }) => {
+
+  const [portfolios, setPortfolios] = useState(fetchedPortfolios);
+
+  const createPortfolio = async () => {
+    const { data: { data: { createPortfolio } } } = await queryCreatePortfolio();
+    setPortfolios([...portfolios, createPortfolio])
+  }
 
   return (
     <>
@@ -33,6 +69,12 @@ const Portfolios = ({ portfolios }) => {
             <h1>Portfolios</h1>
           </div>
         </div>
+        <button
+          className="btn btn-primary"
+          onClick={createPortfolio}
+        >
+          Create Portfolio
+        </button>
       </section>
       <section className="pb-5">
         <div className="row">
