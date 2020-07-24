@@ -52,6 +52,35 @@ const queryCreatePortfolio = () => {
 
   return Axios.post(`http://localhost:3000/graphql`, { query })
 }
+
+const queryUpdatePortfolio = (id) => {
+  const query = `
+      mutation UpdatePortfolio {
+        updatePortfolio(id: "${id}", input: {
+          title: "JOB FLORIPA 2"
+          company: "WAVECODE EIRELLI"
+          companyWebsite: "https://wavecode.com.br"
+          location: "São José, SC"
+          jobTitle: "Programador"
+          description: "Inserir código no teclado"
+          startDate: "26/08/2019"
+          endDate: "NOT YET DECIDED"
+        }) {
+          _id
+          title
+          company
+          companyWebsite
+          location
+          jobTitle
+          description
+          startDate
+          endDate
+        }
+      }
+    `;
+
+  return Axios.post(`http://localhost:3000/graphql`, { query })
+}
 const Portfolios = ({ portfolios: fetchedPortfolios }) => {
 
   const [portfolios, setPortfolios] = useState(fetchedPortfolios);
@@ -59,6 +88,15 @@ const Portfolios = ({ portfolios: fetchedPortfolios }) => {
   const createPortfolio = async () => {
     const { data: { data: { createPortfolio } } } = await queryCreatePortfolio();
     setPortfolios([...portfolios, createPortfolio])
+  }
+
+  const updatePortfolio = async (id) => {
+    const { data: { data: { updatePortfolio } } } = await queryUpdatePortfolio(id);
+    const index = portfolios.findIndex(p => p._id === id);
+    const newPortfolios = portfolios.slice();
+    newPortfolios[index] = updatePortfolio;
+    setPortfolios(newPortfolios)
+    // const updatedPortfolio = updatedPortfolio.map
   }
 
   return (
@@ -89,6 +127,9 @@ const Portfolios = ({ portfolios: fetchedPortfolios }) => {
                     <PortfolioCard portfolio={portfolio} />
                   </a>
                 </Link>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => updatePortfolio(portfolio._id)}>Edit Portfolio</button>
               </div>)
           })}
 
