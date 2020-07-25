@@ -2,38 +2,8 @@ import Axios from "axios";
 import PortfolioCard from "../../components/portfolios/PortfolioCard";
 import Link from 'next/link';
 import { useState, useEffect } from "react";
-import { useLazyQuery } from "@apollo/react-hooks";
-import { GET_PORTFOLIOS } from "../../apollo/queries";
-
-// Create portfolio GraphQL mutation
-const queryCreatePortfolio = () => {
-  const query = `
-      mutation CreatePortfolio {
-        createPortfolio(input: {
-          title: "JOB FLORIPA"
-          company: "WAVECODE EIRELLI"
-          companyWebsite: "https://wavecode.com.br"
-          location: "São José, SC"
-          jobTitle: "Programador"
-          description: "Inserir código no teclado"
-          startDate: "26/08/2019"
-          endDate: "NOT YET DECIDED"
-        }) {
-          _id
-          title
-          company
-          companyWebsite
-          location
-          jobTitle
-          description
-          startDate
-          endDate
-        }
-      }
-    `;
-
-  return Axios.post(`http://localhost:3000/graphql`, { query })
-}
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
+import { GET_PORTFOLIOS, CREATE_PORTFOLIO } from "../../apollo/queries";
 
 // Edit portfolio GraphQL mutation
 const queryUpdatePortfolio = (id) => {
@@ -89,22 +59,27 @@ const Portfolios = () => {
 
   const [portfolios, setPortfolios] = useState([]);
   const [getPortfolios, { loading, data, error }] = useLazyQuery(GET_PORTFOLIOS);
+  // const onPortfolioCreated = ({ createPortfolio }) => setPortfolios([...portfolios, createPortfolio])
+  const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {
+    update(cache, { data: { createPortfolio } }) {
+      const { portfolios } = cache.readQuery({ query: GET_PORTFOLIOS });
+      cache.writeQuery({
+        query: GET_PORTFOLIOS,
+        data: { portfolios: [...portfolios, createPortfolio] }
+      });
+    }
+  });
 
   useEffect(() => {
     getPortfolios();
-  }, [])
+  }, []);
 
   if (error) return 'error';
-  if (data?.portfolios.length && !portfolios.length) {
+  if (data?.portfolios.length && (!portfolios.length || data.portfolios.length !== portfolios.length)) {
     setPortfolios(data.portfolios);
   }
 
   if (loading) return 'Loading...';
-
-  const createPortfolio = async () => {
-    const { data: { data: { createPortfolio } } } = await queryCreatePortfolio();
-    setPortfolios([...portfolios, createPortfolio])
-  }
 
   const updatePortfolio = async (id) => {
     const { data: { data: { updatePortfolio } } } = await queryUpdatePortfolio(id);
