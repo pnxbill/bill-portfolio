@@ -3,7 +3,7 @@ import PortfolioCard from "../../components/portfolios/PortfolioCard";
 import Link from 'next/link';
 import { useState } from "react";
 
-
+// Get portfolios GraphQL query
 const fetchPortfolios = () => {
   const query = `
       query Portfolios {
@@ -23,7 +23,7 @@ const fetchPortfolios = () => {
 
   return Axios.post(`http://localhost:3000/graphql`, { query })
 }
-
+// Create portfolio GraphQL mutation
 const queryCreatePortfolio = () => {
   const query = `
       mutation CreatePortfolio {
@@ -53,6 +53,7 @@ const queryCreatePortfolio = () => {
   return Axios.post(`http://localhost:3000/graphql`, { query })
 }
 
+// Edit portfolio GraphQL mutation
 const queryUpdatePortfolio = (id) => {
   const query = `
       mutation UpdatePortfolio {
