@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PORTFOLIOS, CREATE_PORTFOLIO } from "../../apollo/queries";
 import withApollo from '@/hoc/withApollo';
+import { getDataFromTree } from '@apollo/react-ssr';
 
 // Edit portfolio GraphQL mutation
 const queryUpdatePortfolio = (id) => {
@@ -143,4 +144,4 @@ const Portfolios = () => {
   )
 }
 
-export default withApollo(Portfolios);
+export default withApollo(Portfolios, { getDataFromTree });

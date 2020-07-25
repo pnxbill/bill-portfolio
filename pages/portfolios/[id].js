@@ -4,6 +4,7 @@ import { GET_PORTFOLIO } from '../../apollo/queries';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import withApollo from '@/hoc/withApollo';
+import { getDataFromTree } from '@apollo/react-ssr';
 
 
 const PortfolioDetail = (/* { portfolio } */) => {
@@ -87,4 +88,4 @@ const PortfolioDetail = (/* { portfolio } */) => {
 //   }
 // }
 
-export default withApollo(PortfolioDetail); 
+export default withApollo(PortfolioDetail, { getDataFromTree }); 
