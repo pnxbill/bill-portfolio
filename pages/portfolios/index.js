@@ -159,7 +159,7 @@ const Portfolios = ({ portfolios: fetchedPortfolios }) => {
                   className="btn btn-warning"
                   onClick={() => updatePortfolio(portfolio._id)}>Edit Portfolio</button>
                 <button
-                  className="btn btn-error"
+                  className="btn btn-danger"
                   onClick={() => deletePortfolio(portfolio._id)}
                 >
                   DeletePortfolio
