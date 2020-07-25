@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PORTFOLIOS, CREATE_PORTFOLIO } from "../../apollo/queries";
+import withApollo from '@/hoc/withApollo';
 
 // Edit portfolio GraphQL mutation
 const queryUpdatePortfolio = (id) => {
@@ -142,4 +143,4 @@ const Portfolios = () => {
   )
 }
 
-export default Portfolios;
+export default withApollo(Portfolios);

@@ -3,6 +3,7 @@ import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 import { GET_PORTFOLIO } from '../../apollo/queries';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import withApollo from '@/hoc/withApollo';
 
 
 const PortfolioDetail = (/* { portfolio } */) => {
@@ -86,4 +87,4 @@ const PortfolioDetail = (/* { portfolio } */) => {
 //   }
 // }
 
-export default PortfolioDetail; 
+export default withApollo(PortfolioDetail); 
