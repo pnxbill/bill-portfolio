@@ -82,6 +82,27 @@ const queryUpdatePortfolio = (id) => {
 
   return Axios.post(`http://localhost:3000/graphql`, { query })
 }
+
+// Delete porfolio graphQL mutation
+const queryDeletePortfolio = (id) => {
+  const query = `
+      mutation DeletePortfolio {
+        deletePortfolio(id: "${id}") {
+          _id
+          title
+          company
+          companyWebsite
+          location
+          jobTitle
+          description
+          startDate
+          endDate
+        }
+      }
+    `;
+
+  return Axios.post(`http://localhost:3000/graphql`, { query })
+}
 const Portfolios = ({ portfolios: fetchedPortfolios }) => {
 
   const [portfolios, setPortfolios] = useState(fetchedPortfolios);
@@ -98,6 +119,12 @@ const Portfolios = ({ portfolios: fetchedPortfolios }) => {
     newPortfolios[index] = updatePortfolio;
     setPortfolios(newPortfolios)
     // const updatedPortfolio = updatedPortfolio.map
+  }
+
+  const deletePortfolio = async (id) => {
+    const { data: { data: { deletePortfolio } } } = await queryDeletePortfolio(id);
+    setPortfolios(portfolios.filter(p => p._id !== id));
+    // console.log(deletePortfolio);
   }
 
   return (
@@ -131,6 +158,12 @@ const Portfolios = ({ portfolios: fetchedPortfolios }) => {
                 <button
                   className="btn btn-warning"
                   onClick={() => updatePortfolio(portfolio._id)}>Edit Portfolio</button>
+                <button
+                  className="btn btn-error"
+                  onClick={() => deletePortfolio(portfolio._id)}
+                >
+                  DeletePortfolio
+                </button>
               </div>)
           })}
 
