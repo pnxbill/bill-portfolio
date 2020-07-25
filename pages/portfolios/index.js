@@ -1,36 +1,23 @@
-import Axios from "axios";
 import PortfolioCard from "../../components/portfolios/PortfolioCard";
 import Link from 'next/link';
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GET_PORTFOLIOS, CREATE_PORTFOLIO, UPDATE_PORTFOLIO } from "../../apollo/queries";
+import { GET_PORTFOLIOS, CREATE_PORTFOLIO, UPDATE_PORTFOLIO, DELETE_PORTFOLIO } from "../../apollo/queries";
 import withApollo from '@/hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
 
-
-// Delete porfolio graphQL mutation
-const queryDeletePortfolio = (id) => {
-  const query = `
-      mutation DeletePortfolio {
-        deletePortfolio(id: "${id}") {
-          _id
-          title
-          company
-          companyWebsite
-          location
-          jobTitle
-          description
-          startDate
-          endDate
-        }
-      }
-    `;
-
-  return Axios.post(`http://localhost:3000/graphql`, { query })
-}
 const Portfolios = () => {
   const { data } = useQuery(GET_PORTFOLIOS);
 
-  const [updatePortfolio] = useMutation(UPDATE_PORTFOLIO)
+  const [updatePortfolio] = useMutation(UPDATE_PORTFOLIO);
+  const [deletePortfolio] = useMutation(DELETE_PORTFOLIO, {
+    update(cache, { data: { deletePortfolio } }) {
+      const { portfolios } = cache.readQuery({ query: GET_PORTFOLIOS });
+      cache.writeQuery({
+        query: GET_PORTFOLIOS,
+        data: { portfolios: portfolios.filter(p => p._id !== deletePortfolio._id) }
+      });
+    }
+  });
 
   const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {
     update(cache, { data: { createPortfolio } }) {
@@ -43,10 +30,6 @@ const Portfolios = () => {
   });
 
   const portfolios = data?.portfolios || [];
-
-  const deletePortfolio = async (id) => {
-    await queryDeletePortfolio(id);
-  }
 
   return (
     <>
@@ -81,7 +64,7 @@ const Portfolios = () => {
                   onClick={() => updatePortfolio({ variables: { id: portfolio._id } })}>Edit Portfolio</button>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deletePortfolio(portfolio._id)}
+                  onClick={() => deletePortfolio({ variables: { id: portfolio._id } })}
                 >
                   DeletePortfolio
                 </button>
