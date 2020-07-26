@@ -14,6 +14,8 @@ const { portfolioQueries, portfolioMutations } = require('./graphql/resolvers');
 // types
 const { portfolioTypes } = require('./graphql/types');
 
+require('./db').connect();
+
 app.prepare().then(() => {
   const server = express();
   // Construct a scheema using GRAPHQL
