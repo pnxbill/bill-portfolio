@@ -13,6 +13,9 @@ const handle = app.getRequestHandler();
 const { portfolioQueries, portfolioMutations } = require('./graphql/resolvers');
 // types
 const { portfolioTypes } = require('./graphql/types');
+// GraphQL models
+const Portfolio = require('./graphql/models/Portfolio');
+const mongoose = require('mongoose');
 
 require('./db').connect();
 
@@ -43,7 +46,14 @@ app.prepare().then(() => {
     }
   };
 
-  const apolloServer = new ApolloServer({ typeDefs, resolvers });
+  const apolloServer = new ApolloServer({
+    typeDefs, resolvers,
+    context: () => ({
+      models: {
+        Portfolio: new Portfolio(mongoose.model('Portfolio'))
+      }
+    })
+  });
   apolloServer.applyMiddleware({ app: server })
 
 
