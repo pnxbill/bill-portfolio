@@ -2,6 +2,7 @@
 
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -37,6 +38,22 @@ const userSchema = new Schema({
   },
   info: String,
   createdAt: { type: Date, default: Date.now }
+})
+
+// pre function is executed before user is stored to database
+// used to transform user password in hash before storing into database
+userSchema.pre('save', function (next) {
+  const user = this;
+
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return next(err);  // Tell mongoose I have an error
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+
+      user.password = hash;
+      next();  // Tell mongoose that it can store the user
+    })
+  })
 })
 
 module.exports = mongoose.model('User', userSchema);
