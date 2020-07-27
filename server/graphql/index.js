@@ -2,9 +2,10 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const mongoose = require('mongoose');
 
-const { portfolioQueries, portfolioMutations } = require('./resolvers');
+const { portfolioQueries, portfolioMutations, userMutations } = require('./resolvers');
 const { portfolioTypes } = require('./types');
 const Portfolio = require('./models/Portfolio');
+const User = require('./models/User');
 
 exports.createApolloServer = () => {
   // Construct a scheema using GRAPHQL
@@ -20,6 +21,10 @@ exports.createApolloServer = () => {
       createPortfolio(input: PortfolioInput): Portfolio
       updatePortfolio(id: ID, input: PortfolioInput ): Portfolio
       deletePortfolio(id : ID): Portfolio
+
+      signIn: String
+      signUp: String
+      signOut: String
     }
   `;
   // Provides a resolver for each graphql endpoint
@@ -28,7 +33,8 @@ exports.createApolloServer = () => {
       ...portfolioQueries
     },
     Mutation: {
-      ...portfolioMutations
+      ...portfolioMutations,
+      ...userMutations
     }
   };
 
@@ -36,7 +42,8 @@ exports.createApolloServer = () => {
     typeDefs, resolvers,
     context: () => ({
       models: {
-        Portfolio: new Portfolio(mongoose.model('Portfolio'))
+        Portfolio: new Portfolio(mongoose.model('Portfolio')),
+        User: new User()
       }
     })
   });
