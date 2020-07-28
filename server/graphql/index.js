@@ -6,6 +6,7 @@ const { portfolioQueries, portfolioMutations, userMutations } = require('./resol
 const { portfolioTypes, userTypes } = require('./types');
 const Portfolio = require('./models/Portfolio');
 const User = require('./models/User');
+const { buildAuthContext } = require('./context');
 
 exports.createApolloServer = () => {
   // Construct a scheema using GRAPHQL
@@ -24,7 +25,7 @@ exports.createApolloServer = () => {
       deletePortfolio(id : ID): Portfolio
 
       signUp(input: SignUpInput): String
-      signIn: String
+      signIn(input: SignInInput): String
       signOut: String
     }
   `;
@@ -42,6 +43,7 @@ exports.createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs, resolvers,
     context: () => ({
+      ...buildAuthContext(),
       models: {
         Portfolio: new Portfolio(mongoose.model('Portfolio')),
         User: new User(mongoose.model('User'))
