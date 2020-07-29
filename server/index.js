@@ -8,10 +8,14 @@ const app = next({ dev })
 const handle = app.getRequestHandler();
 
 
-require('./db').connect();
+
+const db = require('./db');
+db.connect();
 
 app.prepare().then(() => {
   const server = express();
+
+  require('./middlewares').init(server, db);
 
   const apolloServer = require('./graphql').createApolloServer();
   apolloServer.applyMiddleware({ app: server })
