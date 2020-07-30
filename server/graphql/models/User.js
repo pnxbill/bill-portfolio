@@ -14,14 +14,14 @@ class User {
     return this.Model.create(data);
   }
 
-  signIn(data, ctx) {
-    const isAuthenticated = ctx.authenticate(data);
-
-    if (isAuthenticated) {
-      console.log('User is authenticated');
+  async signIn(data, ctx) {
+    try {
+      const user = await ctx.authenticate(data);
+      return user;
     }
-
-    return `Signin In user: output`
+    catch (err) {
+      return err;
+    }
   }
 
 
