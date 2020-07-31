@@ -3,13 +3,11 @@ const passport = require("passport");
 // options == { email, password }
 const authenticateUser = (options) => {
   return new Promise((resolve, reject) => {
-    console.log(`Calling authenticateUser`);
-
     const done = (error, user) => {
-      // Here we will get user if is authenticated
-      // If we get user here we can save session to DB
       if (error) return reject(new Error(error))
+      // If we get user here we can save session to DB
       if (user) return resolve(user);
+      else return reject(new Error('Invalid password or email!'))
     }
 
     const authFn = passport.authenticate('graphql', options, done);

@@ -17,15 +17,12 @@ class GraphqlStrategy extends Strategy {
   }
 
   authenticate(_, options) {
-    console.log('Calling authenticate in strategy');
-
     // in done we receive "error", "user", "info"
-    const done = () => {
-      if (true) {
-        // this.success('LoggedInUser');
-        this.error('Some nasty err')
-      }
-      // if has user then call success, otherwise call "fail" or "error"
+    const done = (error, user, info) => {
+      if (error) return this.error(error);
+      if (!user) return this.fail(401);
+
+      return this.success(user, info);
     }
 
     this.verify(options, done)
