@@ -5,6 +5,10 @@ const User = require('../../db/models/user');
 
 exports.init = (passport) => {
 
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
   passport.use('graphql', new GraphqlStrategy((options, done) => {
     // Find user in DB and if user exists verify user password
     // If user is verified call "done"

@@ -10,8 +10,10 @@ const authenticateUser = (req, options) => {
 
       if (user) {
         // If we get user here we can save session to DB
-        req.helloWorld();
-        return resolve(user);
+        req.login(user, (err) => {
+          if (err) return reject(new Error(err));
+          return resolve(user);
+        })
       }
       else return reject(new Error('Invalid password or email!'))
     }
