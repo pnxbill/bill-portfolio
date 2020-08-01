@@ -25,7 +25,7 @@ const Register = () => {
                     }}
                   />
                   {data && data.signUp && <Redirect to="/login" />}
-                  {errpr && <div className="alert alert-danger">{errorMessage(error)}</div>}
+                  {error && <div className="alert alert-danger">{errorMessage(error)}</div>}
                 </>
               }
             </Mutation>

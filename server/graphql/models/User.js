@@ -5,13 +5,22 @@ class User {
     this.Model = model;
   }
 
-  signUp(data) {
+  async signUp(data) {
     const { password, passwordConfirmation } = data;
     if (password !== passwordConfirmation) {
       throw new Error("Passwords don't match");
     }
 
-    return this.Model.create(data);
+    try {
+      return await this.Model.create(data);
+    } catch (e) {
+      if (e.code && e.code === 11000)
+        throw new Error('User with provided email already exists')
+
+      throw e;
+    }
+
+
   }
 
   async signIn(data, ctx) {
