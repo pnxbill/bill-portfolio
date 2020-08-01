@@ -1,11 +1,9 @@
-import RegisterForm from '../components/forms/RegisterForm';
+import RegisterForm from '@/components/forms/RegisterForm';
+import { Mutation } from 'react-apollo';
+import { SIGN_UP } from '@/apollo/queries';
+import withApollo from '@/hoc/withApollo';
 
 const Register = () => {
-
-  const register = (data) => {
-    // e.preventDefault();
-    alert(JSON.stringify(data));
-  }
 
   return (
     <>
@@ -13,7 +11,15 @@ const Register = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Register</h1>
-            <RegisterForm onSubmit={register} />
+            <Mutation mutation={SIGN_UP}>
+              {(signUpUser, { data, error }) =>
+                <>
+                  <RegisterForm onSubmit={registerData => {
+                    signUpUser({ variables: registerData })
+                  }} />
+                </>
+              }
+            </Mutation>
           </div>
         </div>
       </div>
@@ -21,4 +27,4 @@ const Register = () => {
   )
 }
 
-export default Register;
+export default withApollo(Register);
