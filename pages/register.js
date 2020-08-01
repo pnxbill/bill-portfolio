@@ -2,8 +2,8 @@ import RegisterForm from '../components/forms/RegisterForm';
 
 const Register = () => {
 
-  const register = (e, data) => {
-    e.preventDefault();
+  const register = (data) => {
+    // e.preventDefault();
     alert(JSON.stringify(data));
   }
 
