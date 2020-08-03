@@ -4,7 +4,7 @@ const Login = () => {
   return (
     <>
 
-      <div className="bwm-form">
+      <div className="bwm-form mt-5">
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Login</h1>
