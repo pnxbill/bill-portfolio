@@ -7,18 +7,22 @@ const LoginForm = ({ onSubmit }) => {
   const { register, handleSubmit } = useForm();
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input
+          ref={register}
           type="email"
+          name="email"
           className="form-control"
           id="email" />
       </div>
       <div className="form-group">
         <label htmlFor="password">Password</label>
         <input
+          ref={register}
           type="password"
+          name="password"
           className="form-control"
           id="password" />
       </div>

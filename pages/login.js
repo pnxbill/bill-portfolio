@@ -1,4 +1,4 @@
-const { default: LoginForm } = require("../components/forms/LoginForm")
+import LoginForm from '../components/forms/LoginForm';
 
 const Login = () => {
 
@@ -8,7 +8,7 @@ const Login = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Login</h1>
-            <LoginForm />
+            <LoginForm onSubmit={(data) => alert(JSON.stringify(data))} />
           </div>
         </div>
       </div>
