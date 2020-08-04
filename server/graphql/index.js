@@ -2,7 +2,7 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const mongoose = require('mongoose');
 
-const { portfolioQueries, portfolioMutations, userMutations } = require('./resolvers');
+const { portfolioQueries, portfolioMutations, userMutations, userQueries } = require('./resolvers');
 const { portfolioTypes, userTypes } = require('./types');
 const Portfolio = require('./models/Portfolio');
 const User = require('./models/User');
@@ -17,6 +17,8 @@ exports.createApolloServer = () => {
     type Query {
       portfolio(id: ID): Portfolio
       portfolios: [Portfolio]
+
+      user: User
     }
 
     type Mutation { 
@@ -32,7 +34,8 @@ exports.createApolloServer = () => {
   // Provides a resolver for each graphql endpoint
   const resolvers = {
     Query: {
-      ...portfolioQueries
+      ...portfolioQueries,
+      ...userQueries
     },
     Mutation: {
       ...portfolioMutations,
