@@ -28,5 +28,12 @@ export const useCreatePortfolio = () => useMutation(CREATE_PORTFOLIO, {
 
 // AUTH ACTIONS
 
-export const useSignIn = () => useMutation(SIGN_IN);
+export const useSignIn = () => useMutation(SIGN_IN, {
+  update(cache, { data: { signIn } }) {
+    cache.writeQuery({
+      query: GET_USER,
+      data: { user: signIn }
+    })
+  }
+});
 export const useLazyGetUser = () => useLazyQuery(GET_USER);
