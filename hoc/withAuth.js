@@ -2,7 +2,7 @@ import { useGetUser } from "../apollo/actions";
 import Redirect from '@/components/shared/Redirect';
 
 
-export default (Component) => (props) => {
+export default (Component, role) => (props) => {
   const { data: { user } = {}, loading, error } = useGetUser({ fetchPolicy: 'network-only' });
 
   if (
@@ -14,6 +14,7 @@ export default (Component) => (props) => {
   }
 
   if (user) {
+    if (role && user.role !== role) return <Redirect to="/login" />
     return <Component {...props} />
   }
 
