@@ -5,7 +5,7 @@ import Redirect from '../components/shared/Redirect';
 
 const Login = () => {
 
-  const [signIn, { data, error }] = useSignIn();
+  const [signIn, { data, loading, error }] = useSignIn();
 
   const errorMessage = (err) => {
     return err.graphQLErrors[0]?.message || "Oooooops, something went wrong..."
@@ -19,6 +19,7 @@ const Login = () => {
             <h1 className="page-title">Login</h1>
             <LoginForm
               onSubmit={(data) => signIn({ variables: data })}
+              loading={loading}
             />
             {data && data.signIn && <Redirect to="/" />}
             {error && <div className="alert alert-danger">{errorMessage(error)}</div>}
