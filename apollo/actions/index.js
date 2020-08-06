@@ -1,4 +1,4 @@
-import { GET_PORTFOLIOS, UPDATE_PORTFOLIO, DELETE_PORTFOLIO, CREATE_PORTFOLIO, SIGN_IN, GET_USER } from "../queries";
+import { GET_PORTFOLIOS, UPDATE_PORTFOLIO, DELETE_PORTFOLIO, CREATE_PORTFOLIO, SIGN_IN, GET_USER, SIGN_OUT } from "../queries";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
 
 
@@ -36,4 +36,7 @@ export const useSignIn = () => useMutation(SIGN_IN, {
     })
   }
 });
+
+export const useSignOut = () => useMutation(SIGN_OUT);
+
 export const useLazyGetUser = () => useLazyQuery(GET_USER);
