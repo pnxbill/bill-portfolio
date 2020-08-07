@@ -1,5 +1,5 @@
 
-import LoginForm from '../components/forms/LoginForm';
+import PortfolioForm from '@/components/forms/PortfolioForm';
 import withApollo from '@/hoc/withApollo';
 import withAuth from '@/hoc/withAuth';
 
@@ -13,7 +13,7 @@ const PortfolioNew = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Create New Portfolio</h1>
-
+            <PortfolioForm onSubmit={data => alert(JSON.stringify(data))} />
           </div>
         </div>
       </div>
