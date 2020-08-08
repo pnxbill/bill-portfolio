@@ -14,7 +14,7 @@ export default (Component, role) => (props) => {
   }
 
   if (user) {
-    if (role && user.role !== role) return <Redirect to="/login" />
+    if (role && !role.includes(user.role)) return <Redirect to="/login" />
     return <Component {...props} />
   }
 
