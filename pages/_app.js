@@ -3,6 +3,7 @@ import App from 'next/app';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-datepicker/dist/react-datepicker.css";
 import '../styles/index.scss';
 
 import Navbar from '@/components/shared/Navbar';
