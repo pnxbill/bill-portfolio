@@ -13,15 +13,11 @@ const PortfolioForm = ({ onSubmit }) => {
     register({ name: 'endDate' })
   }, [register])
 
-  const handleStartDate = (date) => {
-    setValue('startDate', date.toISOString());
-    setStartDate(date);
+  const handleDateChange = (type, setDate) => date => {
+    setValue(type, date.toISOString());
+    setDate(date);
   }
 
-  const handleEndDate = (date) => {
-    setValue('endDate', date.toISOString());
-    setEndDate(date);
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +79,7 @@ const PortfolioForm = ({ onSubmit }) => {
           <DatePicker
             showYearDropdown
             selected={startDate}
-            onChange={handleStartDate}
+            onChange={handleDateChange('startDate', setStartDate)}
           />
         </div>
       </div>
@@ -94,7 +90,7 @@ const PortfolioForm = ({ onSubmit }) => {
           <DatePicker
             showYearDropdown
             selected={endDate}
-            onChange={handleEndDate}
+            onChange={handleDateChange('endDate', setEndDate)}
           />
         </div>
       </div>
