@@ -14,7 +14,7 @@ const PortfolioForm = ({ onSubmit }) => {
   }, [register])
 
   const handleDateChange = (type, setDate) => date => {
-    setValue(type, date.toISOString());
+    setValue(type, date ? new Date(date.setHours(0, 0, 0, 0)).toISOString() : date);
     setDate(date);
   }
 
@@ -89,10 +89,31 @@ const PortfolioForm = ({ onSubmit }) => {
         <div>
           <DatePicker
             showYearDropdown
+            disabled={!endDate}
             selected={endDate}
             onChange={handleDateChange('endDate', setEndDate)}
           />
         </div>
+      </div>
+      <div className="form-group">
+        {endDate &&
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => handleDateChange('endDate', setEndDate)(null)}
+          >
+            No end date
+          </button>
+        }
+        {!endDate &&
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => handleDateChange('endDate', setEndDate)(new Date())}
+          >
+            Set end date
+          </button>
+        }
       </div>
 
       <button
