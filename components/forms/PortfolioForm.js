@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
+import { useState, useEffect } from "react";
 
 
 const PortfolioForm = ({ onSubmit }) => {
@@ -12,12 +13,14 @@ const PortfolioForm = ({ onSubmit }) => {
     register({ name: 'endDate' })
   }, [register])
 
-  const handleStartDate = () => {
-
+  const handleStartDate = (date) => {
+    setValue('startDate', date.toISOString());
+    setStartDate(date);
   }
 
-  const handleEndDate = () => {
-
+  const handleEndDate = (date) => {
+    setValue('endDate', date.toISOString());
+    setEndDate(date);
   }
 
   return (
