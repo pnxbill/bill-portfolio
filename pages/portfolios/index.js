@@ -17,12 +17,6 @@ const Portfolios = () => {
             <h1>Portfolios</h1>
           </div>
         </div>
-        <button
-          className="btn btn-primary"
-          onClick={createPortfolio}
-        >
-          Create Portfolio
-        </button>
       </section>
       <section className="pb-5">
         <div className="row">
@@ -37,15 +31,6 @@ const Portfolios = () => {
                     <PortfolioCard portfolio={portfolio} />
                   </a>
                 </Link>
-                <button
-                  className="btn btn-warning"
-                  onClick={() => updatePortfolio({ variables: { id: portfolio._id } })}>Edit Portfolio</button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deletePortfolio({ variables: { id: portfolio._id } })}
-                >
-                  DeletePortfolio
-                </button>
               </div>)
           })}
 
