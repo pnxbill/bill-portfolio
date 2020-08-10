@@ -2,14 +2,10 @@ import PortfolioCard from "../../components/portfolios/PortfolioCard";
 import Link from 'next/link';
 import withApollo from '@/hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useGetPortfolio, useUpdatePortfolio, useDeletePortfolio, useCreatePortfolio } from "../../apollo/actions";
+import { useGetPortfolio } from "../../apollo/actions";
 
 const Portfolios = () => {
   const { data } = useGetPortfolio();
-
-  const [updatePortfolio] = useUpdatePortfolio();
-  const [deletePortfolio] = useDeletePortfolio();
-  const [createPortfolio] = useCreatePortfolio();
 
   const portfolios = data?.portfolios || [];
 
