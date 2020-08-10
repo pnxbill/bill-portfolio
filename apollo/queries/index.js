@@ -37,12 +37,12 @@ export const CREATE_PORTFOLIO = gql`
   mutation CreatePortfolio(
     $title: String,
     $company: String,
-    companyWebsite: String,
-    location: String,
-    jobTitle: String,
-    description: String,
-    startDate: String,
-    endDate: String,
+    $companyWebsite: String,
+    $location: String,
+    $jobTitle: String,
+    $description: String,
+    $startDate: String,
+    $endDate: String,
   ) {
     createPortfolio(input: {
       title: $title
