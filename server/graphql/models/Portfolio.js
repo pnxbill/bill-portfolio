@@ -5,7 +5,7 @@ class Portfolio {
   constructor(model, user) {
     this.Model = model;
     this.user = user;
-
+    this.writeRights = ['instructor', 'admin'];
   }
 
   getAll() {
@@ -17,7 +17,7 @@ class Portfolio {
   }
 
   create(input) {
-    if (!this.user) throw new Error('Not Authorized!')
+    if (!this.user || !this.writeRights.includes(this.user.role)) throw new Error('Not Authorized!')
 
     input.user = this.user;
     return this.Model.create(input);
