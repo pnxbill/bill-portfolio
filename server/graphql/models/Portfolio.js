@@ -2,8 +2,9 @@
 
 
 class Portfolio {
-  constructor(model) {
+  constructor(model, user) {
     this.Model = model;
+    this.user = user;
 
   }
 
@@ -16,6 +17,9 @@ class Portfolio {
   }
 
   create(input) {
+    if (!this.user) throw new Error('Not Authorized!')
+
+    input.user = this.user;
     return this.Model.create(input);
   }
 
