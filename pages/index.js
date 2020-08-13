@@ -89,7 +89,7 @@ const Home = () => (
           <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
           <div className="avatar-container my-2">
             <img src="https://via.placeholder.com/150" className="avatar-image mr-2"></img>
-            <span className="avatar-title">Filip Jerga</span>
+            <span className="avatar-title">Bill Marques</span>
           </div>
         </a>
       </div>
