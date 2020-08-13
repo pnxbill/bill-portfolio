@@ -24,6 +24,15 @@ const data = {
       info: "Hello I'm Test",
       password: "testtest",
     },
+    {
+      _id: user3Id,
+      avatar: 'https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png',
+      email: "test5@gmail.com",
+      name: "Test5 User",
+      username: "test99",
+      info: "New test user",
+      password: "testtest",
+    },
   ],
   portfolios: [
     {
