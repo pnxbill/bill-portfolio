@@ -2,7 +2,7 @@ import { GET_PORTFOLIOS, UPDATE_PORTFOLIO, DELETE_PORTFOLIO, CREATE_PORTFOLIO, S
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
 
 
-
+// START PORTFOLIO ACTIONS
 export const useGetPortfolio = () => useQuery(GET_PORTFOLIOS);
 export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
 export const useDeletePortfolio = () => useMutation(DELETE_PORTFOLIO, {
@@ -24,9 +24,11 @@ export const useCreatePortfolio = () => useMutation(CREATE_PORTFOLIO, {
   }
 });
 
+// END PORTFOLIO ACTIONS
 
 
-// AUTH ACTIONS
+
+// START AUTH ACTIONS
 
 export const useSignIn = () => useMutation(SIGN_IN, {
   update(cache, { data: { signIn } }) {
