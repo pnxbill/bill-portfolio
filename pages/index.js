@@ -98,7 +98,7 @@ const Home = () => (
     <div className='reply-controls'>
       <div className="reply-area">
         <div className="reply-to">
-          Reply To: <span className="text ml-2">User1</span>
+          Reply To: <span className="text ml-2">User 1</span>
         </div>
         <div className="fj-editor-input">
           <input
