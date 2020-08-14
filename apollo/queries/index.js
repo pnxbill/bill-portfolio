@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 
-
+// START PORTFOLIO QUERIES
 export const GET_PORTFOLIO = gql`
   query Portfolio($id: ID) {
       portfolio(id: $id) {
@@ -107,6 +107,8 @@ export const DELETE_PORTFOLIO = gql`
     }
   }
 `;
+
+// END PORTFOLIO QUERIES
 
 // START AUTH QUERIES
 
