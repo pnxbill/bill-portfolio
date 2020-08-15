@@ -4,7 +4,8 @@ exports.portfolioQueries = {
   portfolio: (root, { id }, ctx) => {
     return ctx.models.Portfolio.getById(id);
   },
-  portfolios: (root, args, ctx) => ctx.models.Portfolio.getAll()
+  portfolios: (root, args, ctx) => ctx.models.Portfolio.getAll(),
+  userPortfolios: (root, args, ctx) => ctx.models.Portfolio.getAllByUser(),
 }
 
 exports.portfolioMutations = {
