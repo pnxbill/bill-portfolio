@@ -17,7 +17,6 @@ class GraphqlStrategy extends Strategy {
   }
 
   authenticate(_, options) {
-    // in done we receive "error", "user", "info"
     const done = (error, user, info) => {
       if (error) return this.error(error);
       if (!user) return this.fail(401);
