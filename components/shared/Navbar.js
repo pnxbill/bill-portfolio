@@ -19,6 +19,8 @@ const AppNavbar = () => {
     getUser();
   }, []);
 
+
+
   if (data) {
     if (data.user && !user) setUser(data.user);
     if (!data.user && user) setUser(null);
@@ -86,4 +88,5 @@ const AppNavbar = () => {
   )
 }
 
+// exporting component use withApollo 
 export default withApollo(AppNavbar);
