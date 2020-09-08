@@ -4,6 +4,7 @@
 import withApollo from '@/hoc/withApollo';
 import withAuth from '@/hoc/withAuth';
 import { useRouter } from 'next/router';
+import { getDataFromTree } from '@apollo/react-ssr';
 import BaseLayout from '@/layouts/BaseLayout';
 import { Card, Button } from 'react-bootstrap';
 
@@ -35,4 +36,4 @@ const InstructorDashboard = () => {
   )
 }
 
-export default withApollo(withAuth(InstructorDashboard, ['admin', 'instructor']));
+export default withApollo(withAuth(InstructorDashboard, ['admin', 'instructor']), getDataFromTree);
