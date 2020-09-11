@@ -1,13 +1,21 @@
 import withApollo from "next-with-apollo";
-import { ApolloClient, InMemoryCache } from "apollo-boost";
+import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createHttpLink } from "apollo-link-http";
 
 
 
 export default withApollo(
-  ({ initialState }) => {
+  ({ initialState, headers }) => {
     return new ApolloClient({
+      request: operation => {
+        operation.setContext({
+          fetchOptions: {
+            credentials: 'include'
+          },
+          headers
+        })
+      },
       link: createHttpLink({ uri: 'http://localhost:3000/graphql' }),
       cache: new InMemoryCache().restore(initialState || {})
     });
