@@ -1,6 +1,6 @@
 
 import { useQuery } from '@apollo/react-hooks';
-import { GET_PORTFOLIO } from '../../apollo/queries';
+import { GET_PORTFOLIO } from '@/apollo/queries';
 import { useRouter } from 'next/router';
 import withApollo from '@/hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
