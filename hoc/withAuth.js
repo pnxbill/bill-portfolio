@@ -18,5 +18,5 @@ export default (Component, role) => (props) => {
     return <Component {...props} />
   }
 
-  return 'Authenticating...';
+  return null;
 }
