@@ -22,7 +22,7 @@ const InstructorDashboard = () => {
           <div className="col-md-12">
             <h1 className="page-title">Instructor Portfolios</h1>
             {userPortfolios.map(p => (
-              <Card key={p._id}>
+              <Card key={p._id} className="mb-3">
                 <Card.Header>{p.jobTitle}</Card.Header>
                 <Card.Body>
                   <Card.Title>{p.title}</Card.Title>
