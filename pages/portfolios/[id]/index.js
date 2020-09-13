@@ -43,7 +43,7 @@ const PortfolioDetail = () => {
               <p className="text">44</p>
 
               <h4 className="title">End Date</h4>
-              <p className="text">{formatDate(endDate)}</p>
+              <p className="text">{(endDate && formatDate(endDate)) || 'Present'}</p>
             </div>
             <div className="col-md-12">
               <hr />

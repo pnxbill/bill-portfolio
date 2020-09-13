@@ -28,7 +28,7 @@ const InstructorDashboard = () => {
                 <Card.Body>
                   <Card.Title>{p.title}</Card.Title>
                   <Card.Text>
-                    {formatDate(p.startDate)} - {formatDate(p.endDate)}
+                    {formatDate(p.startDate)} - {p.endDate ? formatDate(p.endDate) : 'Present'}
                   </Card.Text>
                   <Link
                     href="/portfolios/[id]/edit"
