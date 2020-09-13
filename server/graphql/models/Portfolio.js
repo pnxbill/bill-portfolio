@@ -28,7 +28,8 @@ class Portfolio {
   }
 
   findAndUpdate(id, input) {
-    return this.Model.findOneAndUpdate({ _id: id }, input, { new: true });
+    return this.Model.findOneAndUpdate({ _id: id }, input, { new: true, runValidators: true });
+    // Need to set runValidatos to true to check required paths properly.
   }
 
   findAndDelete(id) {
