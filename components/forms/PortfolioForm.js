@@ -3,21 +3,26 @@ import DatePicker from "react-datepicker";
 import { useState, useEffect } from "react";
 
 
-const PortfolioForm = ({ onSubmit }) => {
+const PortfolioForm = ({ initialData = {}, onSubmit }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const { handleSubmit, register, setValue } = useForm();
+  const { handleSubmit, register, setValue } = useForm({ defaultValues: initialData });
 
   useEffect(() => {
     register({ name: 'startDate' })
     register({ name: 'endDate' })
   }, [register])
 
+  useEffect(() => {
+    const { startDate, endDate } = initialData;
+    if (startDate) setStartDate(new Date(parseInt(startDate)));
+    if (endDate) setEndDate(new Date(parseInt(endDate)));
+  }, [initialData])
+
   const handleDateChange = (type, setDate) => date => {
     setValue(type, date ? new Date(date.setHours(0, 0, 0, 0)).toISOString() : date);
     setDate(date);
   }
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -28,7 +33,8 @@ const PortfolioForm = ({ onSubmit }) => {
           name="title"
           type="text"
           className="form-control"
-          id="title" />
+          id="title"
+        />
       </div>
 
       <div className="form-group">
@@ -79,7 +85,8 @@ const PortfolioForm = ({ onSubmit }) => {
           rows="5"
           type="text"
           className="form-control"
-          id="description">
+          id="description"
+        >
         </textarea>
       </div>
 
