@@ -5,11 +5,12 @@ import { useRouter } from 'next/router';
 import withApollo from '@/hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BaseLayout from '@/layouts/BaseLayout';
+import { useGetPortfolio } from '../../../apollo/actions';
 
 
 const PortfolioDetail = () => {
   const { id } = useRouter().query
-  const { data } = useQuery(GET_PORTFOLIO, { variables: { id } });
+  const { data } = useGetPortfolio({ variables: { id } })
 
   const portfolio = data?.portfolio || {};
 

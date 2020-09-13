@@ -1,12 +1,12 @@
-import PortfolioCard from "../../components/portfolios/PortfolioCard";
+import PortfolioCard from "@/components/portfolios/PortfolioCard";
 import Link from 'next/link';
 import withApollo from '@/hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useGetPortfolio } from "../../apollo/actions";
+import { useGetPortfolios } from "@/apollo/actions";
 import BaseLayout from '@/layouts/BaseLayout';
 
 const Portfolios = () => {
-  const { data } = useGetPortfolio();
+  const { data } = useGetPortfolios();
 
   const portfolios = data?.portfolios || [];
 
