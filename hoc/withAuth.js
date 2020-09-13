@@ -11,11 +11,17 @@ export default (Component, role, options = { ssr: false }) => {
       (!user || error) &&
       typeof window !== 'undefined' // check if browser environment
     ) {
-      return <Redirect to="/login" />
+      return <Redirect to="/login" query={{
+        message: 'NOT_AUTHENTICATED'
+      }} />
     }
 
     if (user) {
-      if (role && !role.includes(user.role)) return <Redirect to="/login" />
+      if (role && !role.includes(user.role)) return (
+        <Redirect to="/login" query={{
+          message: 'NOT_AUTHORIZED'
+        }} />
+      )
       return <Component {...props} />
     }
 
@@ -34,9 +40,9 @@ export default (Component, role, options = { ssr: false }) => {
       if (req) {
         const { user } = req;
 
-        if (!user) return serverRedirect(res, '/login');
+        if (!user) return serverRedirect(res, '/login?message=NOT_AUTHENTICATED');
 
-        if (role && !role.includes(user.role)) return serverRedirect(res, '/login');
+        if (role && !role.includes(user.role)) return serverRedirect(res, '/login?message=NOT_AUTHORIZED');
 
         const pageProps = Component.getInitialProps && await Component.getInitialProps(context);
         return { ...pageProps }
