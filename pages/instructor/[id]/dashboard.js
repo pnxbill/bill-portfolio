@@ -3,8 +3,8 @@
 
 import withApollo from '@/hoc/withApollo';
 import withAuth from '@/hoc/withAuth';
-import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
+import { formatDate } from "@/utils/functions";
 import BaseLayout from '@/layouts/BaseLayout';
 import { Card, Button } from 'react-bootstrap';
 import { useDeletePortfolio, useGetUserPortfolios } from '../../../apollo/actions';
@@ -15,7 +15,6 @@ const InstructorDashboard = () => {
   const { data } = useGetUserPortfolios();
   const [deletePortfolio] = useDeletePortfolio();
   const userPortfolios = (data && data.userPortfolios) || [];
-  const router = useRouter();
 
   return (
     <BaseLayout>
@@ -29,7 +28,7 @@ const InstructorDashboard = () => {
                 <Card.Body>
                   <Card.Title>{p.title}</Card.Title>
                   <Card.Text>
-                    {p.startDate} - {p.endDate}
+                    {formatDate(p.startDate)} - {formatDate(p.endDate)}
                   </Card.Text>
                   <Link
                     href="/portfolios/[id]/edit"
