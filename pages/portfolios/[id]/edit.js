@@ -7,11 +7,17 @@ import withAuth from '@/hoc/withAuth';
 import BaseLayout from '@/layouts/BaseLayout';
 import { useGetPortfolio } from '@/apollo/actions';
 import { useRouter } from 'next/router';
+import { useUpdatePortfolio } from '@/apollo/actions';
 
 
 const PortfolioEdit = () => {
   const { id } = useRouter().query;
   const { data } = useGetPortfolio({ variables: { id } });
+  const [updatePortfolio, { error }] = useUpdatePortfolio();
+
+  const errorMessage = (err) => {
+    return err.graphQLErrors[0]?.message || "Oooooops, something went wrong..."
+  }
 
   return (
     <BaseLayout>
@@ -22,9 +28,10 @@ const PortfolioEdit = () => {
             {data?.portfolio &&
               <PortfolioForm
                 initialData={data.portfolio}
-                onSubmit={() => { }}
+                onSubmit={data => updatePortfolio({ variables: { id, ...data } })}
               />
             }
+            {error && <div className="alert alert-danger">{errorMessage(error)}</div>}
           </div>
         </div>
       </div>
