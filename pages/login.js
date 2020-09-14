@@ -4,20 +4,29 @@ import { useSignIn } from '../apollo/actions';
 import Redirect from '../components/shared/Redirect';
 import { useRouter } from 'next/router';
 import BaseLayout from '@/layouts/BaseLayout';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import messages from '@/variables/messageCodes';
 
 const Login = () => {
+  const timeout = useRef(null); // Keep same value always;
   const [signIn, { data, loading, error }] = useSignIn();
 
   const router = useRouter();
   // const [message, setMessage] = useState(router.query.message);
   const { message } = router.query;
 
+  const disposeMessage = () => {
+    router.replace('/login', '/login', { shallow: true });
+  }
 
-  // useEffect(() => {
-  //   setTimeout(() => (setMessage('')), 4000);
-  // }, [message])
+
+  useEffect(() => {
+    if (message) {
+      timeout.current = setTimeout(disposeMessage, 4000);
+    }
+
+    return () => clearTimeout(timeout.current);
+  }, [message])
 
   const errorMessage = (err) => {
     return err.graphQLErrors[0]?.message || "Oooooops, something went wrong..."
