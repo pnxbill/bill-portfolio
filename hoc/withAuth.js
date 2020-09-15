@@ -1,5 +1,6 @@
 import { useGetUser } from "../apollo/actions";
 import Redirect from '@/components/shared/Redirect';
+import Spinner from '@/components/shared/Spinner';
 
 
 export default (Component, role, options = { ssr: false }) => {
@@ -25,7 +26,7 @@ export default (Component, role, options = { ssr: false }) => {
       return <Component {...props} />
     }
 
-    return <p>Authenticating...</p>;
+    return <Spinner />;
   }
 
   if (options.ssr) {
