@@ -5,8 +5,10 @@ const Loader = styled.div`
   width: 80px;
   height: 80px;
   position: absolute;
-  right: calc(50% - 80px);
-  bottom: calc(50vh - 40px);
+  left: 50%;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  
   div {
     position: absolute;
     border: 4px solid #000;
