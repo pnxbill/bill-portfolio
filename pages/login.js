@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import BaseLayout from '@/layouts/BaseLayout';
 import { useEffect, useRef } from 'react';
 import messages from '@/variables/messageCodes';
+import Spinner from '../components/shared/Spinner';
 
 const Login = () => {
   const timeout = useRef(null); // Keep same value always;
