@@ -6,6 +6,10 @@ class ForumCategory {
     this.Model = model;
   }
 
+  getOneBySlug(slug) {
+    return this.Model.findOne({ slug }).populate('user');
+  }
+
   getAll() {
     return this.Model.find({});
   }

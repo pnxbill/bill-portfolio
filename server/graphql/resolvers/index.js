@@ -47,7 +47,10 @@ exports.forumQueries = {
   forumCategories: (root, args, ctx) => {
     return ctx.models.ForumCategory.getAll();
   },
-  topicsByCategory: (root, { category }, ctx) => {
-    return ctx.models.Topic.getAllByCategory(category);
+  topicsByCategory: async (root, { slug }, ctx) => {
+    const forumCategory = await ctx.models.ForumCategory.getOneBySlug(slug);
+    if (!forumCategory) return null;
+
+    return ctx.models.Topic.getAllByCategory(forumCategory._id);
   }
 }
