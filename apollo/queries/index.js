@@ -188,3 +188,15 @@ export const GET_USER = gql`
 `;
 
 // END AUTH QUERIES
+
+// START FORUM QUERIES
+
+export const FORUM_CATEGORIES = gql`
+  query ForumCategories {
+    forumCategories {
+      title
+      subTitle
+      slug
+    } 
+  }
+`;
