@@ -21,7 +21,7 @@ const ForumCategories = () => {
       <section className="fj-category-list">
         <div className="row">
           {forumCategories.map(cat => (
-            <div className="col-md-4">
+            <div key={cat.slug} className="col-md-4">
               <div className="fj-category-container">
                 <a className="fj-category subtle-shadow no-border" href="#">
                   {
