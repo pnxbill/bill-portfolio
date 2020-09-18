@@ -1,5 +1,5 @@
 
-
+const slugify = require('slugify');
 
 class Topic {
   constructor(model, user) {
@@ -18,7 +18,7 @@ class Topic {
     if (!this.user) throw new Error('You need to authenticate in order to create a topic!');
     data.user = this.user;
     // Generate slug
-    data.slug = "doesnt-matter";
+    data.slug = slugify(data.title, { lower: true });
 
     const createdTopic = await this.Model.create(data);
 
