@@ -200,3 +200,23 @@ export const FORUM_CATEGORIES = gql`
     } 
   }
 `;
+
+export const TOPICS_BY_CATEGORY = gql`
+  query TopicsByCategory($category: String) {
+    topicsByCategory(category: $category) {
+      _id
+      slug
+      title
+      content
+      user {
+        username
+        avatar
+      }
+      forumCategory {
+        _id
+        title
+        slug
+      }
+    }
+  }
+`;
