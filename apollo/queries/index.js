@@ -202,8 +202,8 @@ export const FORUM_CATEGORIES = gql`
 `;
 
 export const TOPICS_BY_CATEGORY = gql`
-  query TopicsByCategory($category: String) {
-    topicsByCategory(category: $category) {
+  query TopicsByCategory($slug: String) {
+    topicsByCategory(slug: $slug) {
       _id
       slug
       title
