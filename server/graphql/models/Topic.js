@@ -2,8 +2,9 @@
 
 
 class Topic {
-  constructor(model) {
+  constructor(model, user) {
     this.Model = model;
+    this.user = user;
   }
 
   getAllByCategory(forumCategory) {
@@ -11,6 +12,17 @@ class Topic {
       .find({ forumCategory })
       .populate('user')
       .populate('forumCategory');
+  }
+
+  async create(data) {
+    if (!this.user) throw new Error('You need to authenticate in order to create a topic!');
+    data.user = this.user;
+    // Generate slug
+    data.slug = "doesnt-matter";
+
+    const createdTopic = await this.Model.create(data);
+
+    return this.Model.findById(createdTopic._id).populate('user').populate('forumCategory')
   }
 }
 
