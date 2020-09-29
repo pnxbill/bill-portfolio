@@ -6,14 +6,19 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Replier from '@/components/shared/Replier';
 import { useState } from 'react';
 
-const Topics = () => {
-  const [isReplierOpen, setReplierOpen] = useState(false);
+const useInitialData = () => {
   const { slug } = useRouter().query;
   const { data } = useGetTopicsByCategory({ variables: { slug } });
   const { data: dataUser } = useGetUser();
   const user = dataUser?.user;
-
   const topicsByCategory = (data && data.topicsByCategory) || [];
+
+  return { topicsByCategory, user }
+}
+
+const Topics = () => {
+  const [isReplierOpen, setReplierOpen] = useState(false);
+  const { topicsByCategory, user } = useInitialData();
 
   return (
     <BaseLayout>
