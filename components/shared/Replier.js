@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Replier = ({ isOpen = true }) => {
+const Replier = ({ isOpen, closeBtn, onSubmit }) => {
+  const [reply, setReply] = useState({ title: '', content: '' });
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setReply({ ...reply, [name]: value })
+  }
+
+  const resetReplier = () => {
+    setReply({ title: '', content: '' });
+  }
+
   return (
     <div className={`reply-controls ${isOpen ? 'is-open' : null}`}>
       <div className="reply-area">
@@ -10,13 +21,18 @@ const Replier = ({ isOpen = true }) => {
         <div className="fj-editor-input">
           <input
             name="title"
+            onChange={handleChange}
+            value={reply.title}
             placeholder="Topic title"
-            type="text"></input>
+            type="text"
+          />
         </div>
         <div className="fj-editor">
           <div className="fj-editor-textarea-wrapper">
             <textarea
               name="content"
+              value={reply.content}
+              onChange={handleChange}
               placeholder="Type here">
             </textarea>
           </div>
@@ -29,9 +45,12 @@ const Replier = ({ isOpen = true }) => {
         <div className="submit-area">
           <div className="send mr-auto">
             <button
-              href="#"
+              onClick={() => {
+                onSubmit(reply);
+                resetReplier();
+              }}
               className="btn btn-main bg-blue py-2 ttu">Reply</button>
-            <a className="btn py-2 ttu gray-10">Cancel</a>
+            {closeBtn}
           </div>
           <div>
             <a className="btn py-2 ttu gray-10">hide preview</a>
