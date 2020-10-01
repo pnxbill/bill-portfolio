@@ -241,6 +241,8 @@ export const CREATE_TOPIC = gql`
         avatar
       }
       forumCategory {
+        _id
+        title
         slug
       }
     }
