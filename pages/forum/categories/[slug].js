@@ -1,5 +1,5 @@
 import BaseLayout from '@/layouts/BaseLayout';
-import { useGetTopicsByCategory, useGetUser } from '@/apollo/actions';
+import { useGetTopicsByCategory, useCreateTopic, useGetUser } from '@/apollo/actions';
 import { useRouter } from 'next/router';
 import withApollo from '../../../hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
@@ -13,14 +13,19 @@ const useInitialData = () => {
   const user = dataUser?.user;
   const topicsByCategory = (data && data.topicsByCategory) || [];
 
-  return { topicsByCategory, user }
+  return { topicsByCategory, user, slug }
 }
 
 const Topics = () => {
   const [isReplierOpen, setReplierOpen] = useState(false);
-  const { topicsByCategory, user } = useInitialData();
+  const { topicsByCategory, user, slug } = useInitialData();
+  const [createTopic] = useCreateTopic()
 
-  const createTopic = (topicData) => alert(JSON.stringify(topicData));
+  const handleCreateTopic = async (topicData) => {
+    topicData.forumCategory = slug;
+    await createTopic({ variables: topicData });
+    setReplierOpen(false);
+  }
 
   return (
     <BaseLayout>
@@ -59,7 +64,7 @@ const Topics = () => {
       </section>
       <Replier
         isOpen={isReplierOpen}
-        onSubmit={createTopic}
+        onSubmit={handleCreateTopic}
         closeBtn={<a
           className="btn py-2 ttu gray-10"
           onClick={() => setReplierOpen(false)}
