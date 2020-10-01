@@ -45,8 +45,8 @@ const Replier = ({ isOpen, closeBtn, onSubmit }) => {
         <div className="submit-area">
           <div className="send mr-auto">
             <button
-              onClick={() => {
-                onSubmit(reply);
+              onClick={async () => {
+                await onSubmit(reply);
                 resetReplier();
               }}
               className="btn btn-main bg-blue py-2 ttu">Reply</button>
