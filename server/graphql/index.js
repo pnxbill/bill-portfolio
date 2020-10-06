@@ -29,6 +29,7 @@ exports.createApolloServer = () => {
       forumCategories: [ForumCategory]
 
       topicsByCategory(slug: String): [Topic] 
+      topicBySlug(slug: String): Topic
     }
 
     type Mutation { 
