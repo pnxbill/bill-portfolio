@@ -1,4 +1,4 @@
-import { GET_PORTFOLIOS, UPDATE_PORTFOLIO, DELETE_PORTFOLIO, CREATE_PORTFOLIO, SIGN_IN, GET_USER, SIGN_OUT, GET_USER_PORTFOLIOS, GET_PORTFOLIO, GET_CATEGORIES, FORUM_CATEGORIES, TOPICS_BY_CATEGORY, CREATE_TOPIC } from "../queries";
+import { GET_PORTFOLIOS, UPDATE_PORTFOLIO, DELETE_PORTFOLIO, CREATE_PORTFOLIO, SIGN_IN, GET_USER, SIGN_OUT, GET_USER_PORTFOLIOS, GET_PORTFOLIO, GET_CATEGORIES, FORUM_CATEGORIES, TOPICS_BY_CATEGORY, CREATE_TOPIC, TOPIC_BY_SLUG } from "../queries";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
 
 
@@ -65,6 +65,8 @@ export const useLazyGetUser = () => useLazyQuery(GET_USER);
 export const useGetCategories = () => useQuery(FORUM_CATEGORIES);
 
 export const useGetTopicsByCategory = (options) => useQuery(TOPICS_BY_CATEGORY, options);
+
+export const useGetTopicBySlug = (options) => useQuery(TOPIC_BY_SLUG, options);
 
 export const useCreateTopic = () => useMutation(CREATE_TOPIC, {
   update(cache, { data: { createTopic } }) {
