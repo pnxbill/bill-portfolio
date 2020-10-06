@@ -7,18 +7,19 @@ import Replier from '@/components/shared/Replier';
 import { useState } from 'react';
 
 const useInitialData = () => {
-  const { slug } = useRouter().query;
+  const router = useRouter();
+  const { slug } = router.query;
   const { data } = useGetTopicsByCategory({ variables: { slug } });
   const { data: dataUser } = useGetUser();
   const user = dataUser?.user;
   const topicsByCategory = (data && data.topicsByCategory) || [];
 
-  return { topicsByCategory, user, slug }
+  return { topicsByCategory, user, slug, router }
 }
 
 const Topics = () => {
   const [isReplierOpen, setReplierOpen] = useState(false);
-  const { topicsByCategory, user, slug } = useInitialData();
+  const { topicsByCategory, user, slug, router } = useInitialData();
   const [createTopic] = useCreateTopic()
 
   const handleCreateTopic = async (topicData) => {
@@ -26,6 +27,8 @@ const Topics = () => {
     await createTopic({ variables: topicData });
     setReplierOpen(false);
   }
+
+  const goToTopic = slug => router.push('/forum/topics/[slug]', `/forum/topics/${slug}`)
 
   return (
     <BaseLayout>
@@ -53,7 +56,7 @@ const Topics = () => {
           </thead>
           <tbody>
             {topicsByCategory.map(topic => (
-              <tr key={topic._id}>
+              <tr key={topic._id} onClick={() => goToTopic(topic.slug)}>
                 <th>{topic.title}</th>
                 <td className="category">{topic.forumCategory.title}</td>
                 <td>{topic.user.username}</td>
