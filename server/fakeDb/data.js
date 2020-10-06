@@ -184,7 +184,7 @@ const data = {
       _id: post4Id,
       content: 'Good to hear that!',
       slug: 'md59/md79/md89',
-      fullSlug: post2CreatedAt.toISOString() + ':md59' + '/' + post3CreatedAt.toISOString() + ':md79' + + '/' + post4CreatedAt.toISOString() + ':md89',
+      fullSlug: post2CreatedAt.toISOString() + ':md59' + '/' + post3CreatedAt.toISOString() + ':md79' + '/' + post4CreatedAt.toISOString() + ':md89',
       topic: topic1Id,
       user: user2Id,
       parent: post3Id,
