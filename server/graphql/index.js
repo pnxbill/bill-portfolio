@@ -30,6 +30,8 @@ exports.createApolloServer = () => {
 
       topicsByCategory(slug: String): [Topic] 
       topicBySlug(slug: String): Topic
+      
+      postsBySlug(slug: String): [Post]
     }
 
     type Mutation { 
