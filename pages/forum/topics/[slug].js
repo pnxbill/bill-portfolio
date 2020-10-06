@@ -14,7 +14,6 @@ const useInitialData = () => {
 
 const Posts = () => {
   const { topic } = useInitialData();
-  debugger;
 
   return (
     <BaseLayout>
