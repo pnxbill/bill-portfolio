@@ -269,7 +269,7 @@ const postResponse = `
 
 export const POSTS_BY_TOPIC = gql`
   query PostsByTopic($slug: String) {
-    postsBySlug(slug: $slug) {
+    postsByTopic(slug: $slug) {
       ${postResponse}
     }
   }
