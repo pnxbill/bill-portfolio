@@ -87,5 +87,5 @@ export const useCreateTopic = () => useMutation(CREATE_TOPIC, {
   }
 })
 
-export const useGetPostsByTopic = options = useQuery(POSTS_BY_TOPIC, options);
+export const useGetPostsByTopic = options => useQuery(POSTS_BY_TOPIC, options);
 // END FORUM ACTIONS
