@@ -1,6 +1,6 @@
 import { fromNow } from '@/utils/functions';
 
-const PostItem = ({ post, className }) => {
+const PostItem = ({ post, className, onReply }) => {
 
   const { parent } = post;
 
@@ -50,7 +50,9 @@ const PostItem = ({ post, className }) => {
               <section className="post-menu-area">
                 <nav className="post-controls">
                   <div className="actions">
-                    <button className="btn">reply</button>
+                    {onReply &&
+                      <button className="btn" onClick={onReply}>reply</button>
+                    }
                   </div>
                 </nav>
               </section>
