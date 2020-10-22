@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import withApollo from '../../../hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
 import PostItem from '../../../components/forum/PostItem';
+import Replier from '@/components/shared/Replier';
+import { useState } from 'react';
 
 const useInitialData = () => {
   const router = useRouter();
@@ -37,6 +39,7 @@ const PostsPage = () => {
 }
 
 const Posts = ({ posts, topic }) => {
+  const [isReplierOpen, setReplierOpen] = useState(false);
 
   return (
     <section>
@@ -48,11 +51,24 @@ const Posts = ({ posts, topic }) => {
         {posts.map(post => (
           <div key={post._id} className="row">
             <div className="col-md-9">
-              <PostItem post={post} />
+              <PostItem post={post} onReply={() => {
+                setReplierOpen(true);
+              }} />
             </div>
           </div>
         ))}
       </div>
+      <Replier
+        isOpen={isReplierOpen}
+        onSubmit={() => { }}
+        closeBtn={<a
+          className="btn py-2 ttu gray-10"
+          onClick={() => setReplierOpen(false)}
+        >
+          Cancel
+        </a>
+        }
+      />
     </section>
   )
 }
