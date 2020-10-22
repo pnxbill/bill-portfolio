@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Replier = ({ isOpen, closeBtn, onSubmit }) => {
+const Replier = ({ isOpen, closeBtn, onSubmit, hasTitle }) => {
   const [reply, setReply] = useState({ title: '', content: '' });
 
   const handleChange = e => {
@@ -15,19 +15,21 @@ const Replier = ({ isOpen, closeBtn, onSubmit }) => {
   return (
     <div className={`reply-controls ${isOpen ? 'is-open' : null}`}>
       <div className="reply-area">
-        <div className="reply-to">
+        {/* <div className="reply-to">
           Reply To: <span className="text ml-2">User 1</span>
-        </div>
-        <div className="fj-editor-input">
-          <input
-            name="title"
-            onChange={handleChange}
-            value={reply.title}
-            placeholder="Topic title"
-            type="text"
-          />
-        </div>
-        <div className="fj-editor">
+        </div> */}
+        {hasTitle &&
+          <div className="fj-editor-input">
+            <input
+              name="title"
+              onChange={handleChange}
+              value={reply.title}
+              placeholder="Topic title"
+              type="text"
+            />
+          </div>
+        }
+        <div className={`fj-editor ${hasTitle ? "" : "mt-3"}`}>
           <div className="fj-editor-textarea-wrapper">
             <textarea
               name="content"

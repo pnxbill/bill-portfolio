@@ -67,6 +67,7 @@ const Topics = () => {
       </section>
       <Replier
         isOpen={isReplierOpen}
+        hasTitle
         onSubmit={handleCreateTopic}
         closeBtn={<a
           className="btn py-2 ttu gray-10"
