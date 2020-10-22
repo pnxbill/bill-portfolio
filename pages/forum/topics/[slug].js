@@ -15,7 +15,7 @@ const useInitialData = () => {
   return { topic, posts };
 }
 
-const Posts = () => {
+const PostsPage = () => {
   const { topic, posts } = useInitialData();
 
   return (
@@ -27,23 +27,34 @@ const Posts = () => {
           </div>
         </div>
       </section>
-      <section>
-        <div className="fj-post-list">
-          <PostItem
-            post={topic}
-            className="topic-post-lead"
-          />
-          {posts.map(post => (
-            <div key={post._id} className="row">
-              <div className="col-md-9">
-                <PostItem post={post} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Posts
+        posts={posts}
+        topic={topic}
+      />
+
     </BaseLayout>
   )
 }
 
-export default withApollo(Posts, { getDataFromTree });
+const Posts = ({ posts, topic }) => {
+
+  return (
+    <section>
+      <div className="fj-post-list">
+        <PostItem
+          post={topic}
+          className="topic-post-lead"
+        />
+        {posts.map(post => (
+          <div key={post._id} className="row">
+            <div className="col-md-9">
+              <PostItem post={post} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default withApollo(PostsPage, { getDataFromTree });
