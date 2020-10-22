@@ -40,6 +40,7 @@ const PostsPage = () => {
 
 const Posts = ({ posts, topic }) => {
   const [isReplierOpen, setReplierOpen] = useState(false);
+  const [replyTo, setReplyTo] = useState("");
 
   return (
     <section>
@@ -52,6 +53,7 @@ const Posts = ({ posts, topic }) => {
           <div key={post._id} className="row">
             <div className="col-md-9">
               <PostItem post={post} onReply={() => {
+                setReplyTo(post?.user?.username);
                 setReplierOpen(true);
               }} />
             </div>
@@ -60,6 +62,7 @@ const Posts = ({ posts, topic }) => {
       </div>
       <Replier
         isOpen={isReplierOpen}
+        replyTo={replyTo}
         onSubmit={() => { }}
         closeBtn={<a
           className="btn py-2 ttu gray-10"
