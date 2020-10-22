@@ -1,5 +1,5 @@
 import BaseLayout from '@/layouts/BaseLayout';
-import { useGetTopicBySlug, useGetPostsByTopic } from '../../../apollo/actions';
+import { useGetTopicBySlug, useGetPostsByTopic, useGetUser } from '../../../apollo/actions';
 import { useRouter } from 'next/router';
 import withApollo from '../../../hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
@@ -12,13 +12,15 @@ const useInitialData = () => {
   const { slug } = router.query;
   const { data } = useGetTopicBySlug({ variables: { slug } });
   const { data: dataPost } = useGetPostsByTopic({ variables: { slug } });
+  const { data: dataUser } = useGetUser();
   const topic = data?.topicBySlug || {};
   const posts = dataPost?.postsByTopic || [];
-  return { topic, posts };
+  const user = dataUser?.user || null;
+  return { topic, posts, user };
 }
 
 const PostsPage = () => {
-  const { topic, posts } = useInitialData();
+  const { topic, posts, user } = useInitialData();
 
   return (
     <BaseLayout>
@@ -32,18 +34,19 @@ const PostsPage = () => {
       <Posts
         posts={posts}
         topic={topic}
+        user={user}
       />
 
     </BaseLayout>
   )
 }
 
-const Posts = ({ posts, topic }) => {
+const Posts = ({ posts, topic, user }) => {
   const [isReplierOpen, setReplierOpen] = useState(false);
-  const [replyTo, setReplyTo] = useState("");
+  const [replyTo, setReplyTo] = useState(null);
 
   return (
-    <section>
+    <section className="mb-5">
       <div className="fj-post-list">
         <PostItem
           post={topic}
@@ -52,13 +55,36 @@ const Posts = ({ posts, topic }) => {
         {posts.map(post => (
           <div key={post._id} className="row">
             <div className="col-md-9">
-              <PostItem post={post} onReply={() => {
-                setReplyTo(post?.user?.username);
-                setReplierOpen(true);
-              }} />
+              <PostItem
+                post={post}
+                canCreate={user !== null}
+                onReply={() => {
+                  setReplyTo(post?.user?.username || topic.title);
+                  setReplierOpen(true);
+                }}
+              />
             </div>
           </div>
         ))}
+      </div>
+      <div className="row mt-2 mx-0">
+        <div className="col-md-9">
+          <div className="posts-bottom">
+            {user &&
+              <div className="pt-2 pb-2">
+                <button
+                  className="btn btn-lg btn-outline-primary"
+                  onClick={() => {
+                    setReplyTo(topic.title);
+                    setReplierOpen(true);
+                  }}
+                >
+                  Create New Post
+              </button>
+              </div>
+            }
+          </div>
+        </div>
       </div>
       <Replier
         isOpen={isReplierOpen}

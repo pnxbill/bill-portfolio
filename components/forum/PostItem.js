@@ -1,6 +1,6 @@
 import { fromNow } from '@/utils/functions';
 
-const PostItem = ({ post, className, onReply }) => {
+const PostItem = ({ post, className, onReply, canCreate }) => {
 
   const { parent } = post;
 
@@ -51,7 +51,7 @@ const PostItem = ({ post, className, onReply }) => {
                 <nav className="post-controls">
                   <div className="actions">
                     {onReply &&
-                      <button className="btn" onClick={onReply}>reply</button>
+                      <button className="btn" disabled={!canCreate} onClick={onReply}>reply</button>
                     }
                   </div>
                 </nav>
