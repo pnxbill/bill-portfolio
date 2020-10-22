@@ -1,4 +1,4 @@
-
+import { fromNow } from '@/utils/functions';
 
 const PostItem = ({ post, className }) => {
 
@@ -21,7 +21,7 @@ const PostItem = ({ post, className }) => {
                 <div className="name-container">
                   <span className="name">{post.user?.username}</span>
                 </div>
-                <div className="date-container"><span className="date">{post.createdAt}</span></div>
+                <div className="date-container"><span className="date">{fromNow(post.createdAt)}</span></div>
               </div>
             </div>
             <div className="topic-content">
