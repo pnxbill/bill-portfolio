@@ -38,7 +38,7 @@ const data = {
     },
     {
       _id: user2Id,
-      avatar: 'https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png',
+      avatar: 'https://www.w3schools.com/howto/img_avatar2.png',
       email: "test@gmail.com",
       name: "Test User",
       username: "test99",
@@ -47,7 +47,7 @@ const data = {
     },
     {
       _id: user3Id,
-      avatar: 'https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png',
+      avatar: 'https://www.w3schools.com/howto/img_avatar2.png',
       email: "test5@gmail.com",
       name: "Test5 User",
       username: "test99",
@@ -56,7 +56,7 @@ const data = {
     },
     {
       _id: user4Id,
-      avatar: 'https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png',
+      avatar: 'https://www.w3schools.com/howto/img_avatar2.png',
       email: "test6@gmail.com",
       name: "Test7 User",
       username: "test99",
