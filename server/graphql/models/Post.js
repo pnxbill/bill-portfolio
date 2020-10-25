@@ -24,21 +24,22 @@ class Post {
 
     const createdAt = moment().toISOString();
     const slugPart = uniqueSlug();
-    const fullSlugPart = createdAt + ':' + slugPart;
+    const fullSlug = createdAt + ':' + slugPart;
 
     if (post.parent) {
       const parent = await this.Model.findById(post.parent);
       post.slug = parent.slug + '/' + slugPart;
-      post.fullSlugPart = parent.fullSlugPart + '/' + fullSlugPart;
+      post.fullSlug = parent.fullSlug + '/' + fullSlug;
     } else {
       post.slug = slugPart;
-      post.fullSlugPart = fullSlugPart;
+      post.fullSlug = fullSlug;
     }
 
     const createdPost = await this.Model.create(post);
     return this.Model
       .findById(createdPost._id)
       .populate('topic')
+      .populate('user')
       .populate({ path: 'parent', populate: 'user' })
   }
 }
