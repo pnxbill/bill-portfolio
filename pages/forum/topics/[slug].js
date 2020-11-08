@@ -1,11 +1,12 @@
 import BaseLayout from '@/layouts/BaseLayout';
-import { useGetTopicBySlug, useGetPostsByTopic, useGetUser } from '../../../apollo/actions';
+import { useGetTopicBySlug, useGetPostsByTopic, useGetUser, useCreatePost } from '../../../apollo/actions';
 import { useRouter } from 'next/router';
 import withApollo from '../../../hoc/withApollo';
 import { getDataFromTree } from '@apollo/react-ssr';
 import PostItem from '../../../components/forum/PostItem';
 import Replier from '@/components/shared/Replier';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const useInitialData = () => {
   const router = useRouter();
@@ -42,8 +43,21 @@ const PostsPage = () => {
 }
 
 const Posts = ({ posts, topic, user }) => {
+  const [createPost, { error }] = useCreatePost();
   const [isReplierOpen, setReplierOpen] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
+
+  const handleCreatePost = async (reply, resetReplier) => {
+    if (replyTo) {
+      reply.parent = replyTo._id;
+    }
+
+    reply.topic = topic._id;
+    await createPost({ variables: reply });
+    resetReplier();
+    setReplierOpen(false);
+    toast.success('Post has been created', { autoClose: 2000 })
+  }
 
   return (
     <section className="mb-5">
@@ -89,7 +103,7 @@ const Posts = ({ posts, topic, user }) => {
       <Replier
         isOpen={isReplierOpen}
         replyTo={replyTo}
-        onSubmit={() => { }}
+        onSubmit={handleCreatePost}
         closeBtn={<a
           className="btn py-2 ttu gray-10"
           onClick={() => setReplierOpen(false)}
