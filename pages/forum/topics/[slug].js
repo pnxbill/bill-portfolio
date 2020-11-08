@@ -7,6 +7,7 @@ import PostItem from '../../../components/forum/PostItem';
 import Replier from '@/components/shared/Replier';
 import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import Pagination from '../../../components/shared/Pagination';
 
 const useInitialData = () => {
   const router = useRouter();
@@ -101,6 +102,9 @@ const Posts = ({ posts, topic, user }) => {
               </button>
               </div>
             }
+            <div className="pagination-cointainer ml-auto">
+              <Pagination />
+            </div>
           </div>
         </div>
       </div>
