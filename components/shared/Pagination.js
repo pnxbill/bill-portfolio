@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PaginationComponent from 'react-js-pagination';
 
-const Pagination = () => {
+const Pagination = ({ count }) => {
   const [page, setPage] = useState(1);
 
   return (
@@ -10,7 +10,7 @@ const Pagination = () => {
       linkClass="page-link"
       activePage={page}
       itemsCountPerPage={10}
-      totalItemsCount={50}
+      totalItemsCount={count}
       pageRangeDisplayed={5}
       onChange={page => setPage(page)}
     />

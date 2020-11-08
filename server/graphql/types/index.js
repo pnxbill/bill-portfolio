@@ -94,4 +94,9 @@ exports.forumTypes = `
     parent: String
     topic: String
   }
+
+  type PagPosts {
+    posts: [Post]
+    count: Int
+  }
 `;

@@ -16,9 +16,9 @@ const useInitialData = () => {
   const { data: dataPost, fetchMore } = useGetPostsByTopic({ variables: { slug } });
   const { data: dataUser } = useGetUser();
   const topic = data?.topicBySlug || {};
-  const posts = dataPost?.postsByTopic || [];
+  const { posts, count } = dataPost?.postsByTopic || { posts: [] };
   const user = dataUser?.user || null;
-  return { topic, posts, user, fetchMore };
+  return { topic, posts, user, fetchMore, count };
 }
 
 const PostsPage = () => {
@@ -43,7 +43,7 @@ const PostsPage = () => {
   )
 }
 
-const Posts = ({ posts, topic, user, fetchMore }) => {
+const Posts = ({ posts, topic, user, fetchMore, count }) => {
   const pageEnd = useRef();
   const [createPost, { error }] = useCreatePost();
   const [isReplierOpen, setReplierOpen] = useState(false);
@@ -114,7 +114,7 @@ const Posts = ({ posts, topic, user, fetchMore }) => {
               </div>
             }
             <div className="pagination-cointainer ml-auto">
-              <Pagination />
+              <Pagination count={count} />
             </div>
           </div>
         </div>
